@@ -2,18 +2,135 @@
 
 using namespace std;
 
+class TreeNode
+{
+public:
+    int data;
+    TreeNode *left;
+    TreeNode *right;
+    /* int depth; */
+
+    TreeNode(int data)
+    {
+        this->data = data;
+        this->left = nullptr;
+        this->right = nullptr;
+    }
+
+    ~TreeNode()
+    {
+        delete this->left;
+        delete this->right;
+    }
+
+    void insert(int left, int right)
+    {
+        if (left != -1)
+        {
+            this->left = new TreeNode(left);
+        }
+
+        if (right != -1)
+        {
+            this->right = new TreeNode(right);
+        }
+    }
+
+    void swap(int factor, int level)
+    {
+        
+        if (level % factor == 0)
+        {
+            TreeNode* temp = this->left;
+            this->left = this->right;
+            this->right = temp;
+            temp = nullptr;
+        }
+
+        if (this->left != nullptr)
+        {
+            this->left->swap(factor, level + 1);
+        }
+
+        if (this->right != nullptr)
+        {
+            this->right->swap(factor, level + 1);
+        }
+    }
+
+    void inorder_to_vector(vector<int>& dump)
+    {
+        // Inorder traversal
+        if (this->left != nullptr)
+        {
+            this->left->inorder_to_vector(dump);
+        }
+
+        dump.push_back(this->data);
+
+        if (this->right != nullptr)
+        {
+            this->right->inorder_to_vector(dump);
+        }
+
+    }
+};
+
 /*
  * Complete the swapNodes function below.
  */
-vector<vector<int>> swapNodes(vector<vector<int>> indexes, vector<int> queries) {
-  /*
-  * Write your code here.
-  */
- vector<vector<int>> result;
+vector<vector<int>> swapNodes(vector<vector<int>> indexes, vector<int> queries)
+{
+    int index = 0;
 
- result.clear();
+    vector<vector<int>> result;
+    vector<int> swapped;
+    queue<TreeNode*> nodes;
+    
+    // build the tree
+    TreeNode root(1);
 
- return result;
+    nodes.push(&root);
+    while (index < indexes.size())
+    {
+        while (!nodes.empty())
+        {
+            TreeNode* current = nodes.front();
+            nodes.pop();
+
+            int left = indexes[index][0];
+            int right = indexes[index][1];
+
+            if (current != nullptr)
+            {
+                current->insert(left, right);
+
+                if (nullptr != current->left)
+                {
+                    nodes.push(current->left);
+                }
+
+                if (nullptr != current->right)
+                {
+                    nodes.push(current->right);
+                }
+            }
+
+            index++;
+        }
+
+        // Now perform the queries
+        for (vector<int>::const_iterator it = queries.begin(); it != queries.end(); it++)
+        {
+            root.swap(*it, 1);
+
+            swapped.clear();
+            root.inorder_to_vector(swapped);
+            result.push_back(swapped);
+        }
+    }
+
+    return result;
 }
 
 int main()
