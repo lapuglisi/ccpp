@@ -1,6 +1,15 @@
 cmake_minimum_required (VERSION 3.0)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
+project (pathfinder)
+set(PROJECT_SOURCE_DIR "${CMAKE_SOURCE_DIR}/${PROJECT_NAME}")
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/${PROJECT_NAME}.cpp)
+enable_testing()
+add_test(
+  NAME ${PROJECT_NAME}_run
+  COMMAND sh -c "${PROJECT_BINARY_DIR}/bin/${PROJECT_NAME}"
+)
+
 project (swapnodes)
 set(PROJECT_SOURCE_DIR "${CMAKE_SOURCE_DIR}/${PROJECT_NAME}")
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/${PROJECT_NAME}.cpp)
