@@ -4,6 +4,8 @@ set(SOURCES
     algorithms/algorithms.cpp 
     hash_table/hash_table.cpp 
     linked_lists/linked_lists.cpp
+    trees/trees.cpp
+    graph/graph.cpp
     studies.cpp)
 
 # Project Studies

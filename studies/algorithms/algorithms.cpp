@@ -1,8 +1,57 @@
 #include <iostream>
-#include "algorithms.hpp"
+#include "algorithms.h"
+
+namespace algorithms
+{
+
+//
+// Algorithms for sorting
+//
+namespace sorting
+{
+    ///
+    /// Merge Sort: constant O(n log(n))
+    ///
+    void merge_sort(int A[], int asize)
+    {
+
+    }
+
+    ///
+    /// Quick sort: average O(n log(n)), worst )(n^2)
+    ///
+    void quick_sort(int A[], int asize)
+    {
+
+    }
+
+    ///
+    /// Insertion sort: best O(n), worst O(n^2)
+    ///
+    void insertion_sort(int A[], int asize)
+    {
+
+    }
+
+    ///
+    /// Selection sort: best O(n), worst O(n^2)
+    ///
+    void selection_sort(int A[], int asize)
+    {
+
+    }
+
+    ///
+    /// Bubble sort: best O(n), worst O(n^2)
+    ///
+    void bubble_sort(int A[], int asize)
+    {
+
+    }
+}
 
 template<size_t rows, size_t cols>
-void printSpiral2D(int A2D[rows][cols])
+void print_spiral(int A2D[rows][cols])
 {
 	int top = 0, right = cols - 1, bottom = rows - 1, left = 0;
 	int direction = 0; // 0 - top, 1 - right, 2 - bottom, 3 - left
@@ -69,7 +118,7 @@ void printSpiral2D(int A2D[rows][cols])
 ///
 /// Finds a element in a circularly sorted array
 ///
-int circularArraySearch(int A[], int asize, int element)
+int circular_array_search(int A[], int asize, int element)
 {
 	// Note: asize, in this case, can be calculated as sizeof(A)/sizeof(A[0])
 	// Just to make sure this function does not receive an invalid asize
@@ -129,7 +178,7 @@ int circularArraySearch(int A[], int asize, int element)
 ///
 /// Finds the rotation count of a circulary rotated array
 ///
-int findRotationCount(int A[], int asize) {
+int find_rotation_count(int A[], int asize) {
 
 	int low = 0;
 	int high = asize - 1;
@@ -148,4 +197,6 @@ int findRotationCount(int A[], int asize) {
 	index = (index > 0 ? index : -1);
 
 	return index;
+}
+
 }
