@@ -26,5 +26,9 @@ int main(int argc, char *argv[])
 			keys[index], table.get(keys[index]));
 	}
 
+    printf("\n");
+    printf("> Calling testTreeTraversal...\n");
+    linked_list::testTreeTraversal();
+
 	return 0;
 }
