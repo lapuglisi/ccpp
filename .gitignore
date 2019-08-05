@@ -1,3 +1,4 @@
 hackerrank/build
 hackerrank/docs
-studies/.build
+studies/build
+*.vscode/
