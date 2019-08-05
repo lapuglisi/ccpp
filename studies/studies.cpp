@@ -1,9 +1,9 @@
 #include <iostream>
 
 #include "algorithms/algorithms.h"
-#include "linked_lists/linked_lists.h"
+#include "linked_list/linked_list.h"
 #include "hash_table/hash_table.h"
-#include "trees/trees.h"
+#include "tree/tree.h"
 #include "graph/graph.h"
 
 int main(int argc, char *argv[])

@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef STUDIES_LINKED_LIST_H
+#define STUDIES_LINKED_LIST_H
 
 #include <iostream>
 
@@ -87,4 +87,4 @@ namespace linked_list
 	void reverse_linked_list(Node*& head);
 }
 
-#endif // LINKED_LIST_H
+#endif // STUDIES_LINKED_LIST_H

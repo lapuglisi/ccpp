@@ -3,8 +3,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(SOURCES 
     algorithms/algorithms.cpp 
     hash_table/hash_table.cpp 
-    linked_lists/linked_lists.cpp
-    trees/trees.cpp
+    linked_list/linked_list.cpp
+    tree/tree.cpp
     graph/graph.cpp
     studies.cpp)
 

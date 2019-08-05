@@ -14,7 +14,7 @@ namespace sorting
     ///
     void merge_sort(int A[], int asize)
     {
-
+      
     }
 
     ///

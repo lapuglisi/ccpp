@@ -1,8 +1,6 @@
 #ifndef STUDIES_GRAPH_H
 #define STUDIES_GRAPH_H
 
-#include "../trees/trees.h"
-
 namespace graph
 {
   struct GraphEdge

@@ -28,7 +28,7 @@ void basic_graph_test()
   Graph root(vertices);
   for (int edge = 0; edge < num_edges; edge++)
   {
-    root.insert(edges[edge] /*, undirected = false*/);
+    root.insert(edges[edge] /*, undirected = false */);
   }
 
   // Dump graph data

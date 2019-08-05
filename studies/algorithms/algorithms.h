@@ -1,5 +1,5 @@
-#ifndef ALGORITHMS_H
-#define ALGORITHMS_H
+#ifndef STUDIES_ALGORITHMS_H
+#define STUDIES_ALGORITHMS_H
 
 #include <iostream>
 
@@ -41,4 +41,4 @@ namespace algorithms
 
 }
 
-#endif // ALGORITHMS_H
+#endif // STUDIES_ALGORITHMS_H
