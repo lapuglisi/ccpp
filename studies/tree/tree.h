@@ -146,42 +146,9 @@ namespace trees
       PostOrderTraversal(root->right);
       printf("[%02d] ", root->data);
     }
-
-    /// Searching algorithms
-
-    ///
-    /// Breadth-first search
-    ///
-    /// Time complexity:
-    /// Constant O(|V| + |E|)
-    ///
-    /// where:
-    /// V = number of vertices
-    /// E = number of edges
-    ///
-    struct BinaryTreeNode<_Ty>* BreadthFirstSearch(struct BinaryTreeNode* root, _Ty value)
-    {
-      return nullptr;
-    } 
-
-    ///
-    /// Depth-first search
-    ///
-    /// Time complexity:
-    /// Constant O(|V| + |E|)
-    ///
-    /// where:
-    /// V = number of vertices
-    /// E = number of edges
-    ///
-    struct BinaryTreeNode<_Ty>* DepthFirstSearch(struct BinaryTreeNode* root, _Ty value)
-    {
-      return nullptr;
-    } 
   };
   #pragma endregion
 
-  #pragma region BinarySearchTree
   ///
   /// BinarySearchTree
   ///
@@ -245,10 +212,115 @@ namespace trees
       return nullptr;
     }
   };
-  #pragma endregion
+
+  /// Binary Heaps
+  struct BinaryHeap
+  {
+  private:
+    int *heap_data_;
+    int capacity_;
+    int size_;
+
+  public:
+    BinaryHeap(int capacity) : capacity_(capacity), 
+      heap_data_(nullptr), size_(0)
+    {
+
+    }
+
+    virtual ~BinaryHeap()
+    {
+      if (this->heap_data_ != nullptr)
+      {
+        free(this->heap_data_);
+      }
+      this->heap_data_ = nullptr;
+    }
+
+    virtual int parent(int index);
+    virtual int left(int index);
+    virtual int right(int index);
+
+    virtual void insertKey(int k);
+    virtual void deleteKey(int index);
+  };
+
+  ///
+  /// MinHeap
+  ///
+  /// Time complexity:
+  /// 'insert key' has O(log(n))
+  /// 'delete key' has O(log(n))
+  ///
+  struct MinHeap : virtual BinaryHeap
+  {
+  public:
+    MinHeap(int capacity) : BinaryHeap(capacity)
+    {
+    }
+
+    ~MinHeap()
+    {
+
+    }
+
+    int parent(int index) override
+    {
+      return (index - 1) / 2;
+    }
+
+    int left(int index) override
+    {
+      return (2 * index) + 1;
+    }
+
+    int right(int index) override
+    {
+      return (2 * index) + 2;
+    }
+
+    void insertKey(int k) override
+    {
+
+    }
+
+    void deleteKey(int index) override
+    {
+
+    }
+  };
+
   
   /// Namespace functions
   void test_binary_tree();
+
+  /// Searching algorithms
+
+  ///
+  /// Breadth-first search
+  ///
+  /// Time complexity:
+  /// Constant O(|V| + |E|)
+  ///
+  /// where:
+  /// V = number of vertices
+  /// E = number of edges
+  ///
+  template<typename _Ty>
+  struct BinaryTreeNode<_Ty>* BreadthFirstSearch(struct BinaryTreeNode<_Ty>* root, _Ty value);
+
+  ///
+  /// Depth-first search
+  ///
+  /// Time complexity:
+  /// Constant O(|V| + |E|)
+  ///
+  /// where:
+  /// V = number of vertices
+  /// E = number of edges
+  ///
+  template<typename _Ty>
+  struct BinaryTreeNode<_Ty>* DepthFirstSearch(struct BinaryTreeNode<_Ty>* root, _Ty value);
 
 }; // namespace trees
 

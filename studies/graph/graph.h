@@ -145,7 +145,7 @@ namespace graph
       {
         for (GraphNode* node = graph->head[vertex]; node != nullptr; node = node->next)
         {
-          printf("|% 3lu  |  % 2d  | % 2d  |\n", vertex, node->key, node->cost);
+          printf("|% 3d  |  % 2d  | % 2d  |\n", (int)vertex, node->key, node->cost);
         }
       }
       printf("====================\n\n");

@@ -10,6 +10,6 @@ set(SOURCES
 
 # Project Studies
 project(studies)
-add_compile_options("-Wall" "-g3" "-ggdb")
+add_compile_options("-g3" "-ggdb")
 add_executable(${PROJECT_NAME} ${SOURCES})
 enable_testing()
