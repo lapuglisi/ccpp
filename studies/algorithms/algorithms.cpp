@@ -1,6 +1,14 @@
 #include <iostream>
 #include "algorithms.h"
 
+#define DUMP_ARRAY(__A, __begin, __end) \
+  printf("%s (%d -> %d): [", #__A, __begin, __end); \
+  for (int __i = __begin; __i < __end; __i++) \
+  {\
+    printf("%d%s", __A[__i], (__i + 1 < __end ? ", " : "")); \
+  }\
+  printf("]\n");
+
 namespace algorithms
 {
 
@@ -12,13 +20,91 @@ namespace sorting
     ///
     /// Merge Sort: constant O(n log(n))
     ///
-    void merge_sort(int A[], int asize)
+    void merge_sort(int A[], size_t array_size)
     {
-      
+      merge_sort(A, 0, array_size - 1);
+    }
+
+    void merge_sort(int A[], int begin, int end)
+    {
+      if (begin >= end)
+      {
+        return;
+      }
+
+      int middle = ((begin + end) / 2);
+
+      merge_sort(A, begin, middle);
+      merge_sort(A, middle + 1, end);
+
+      merge(A, begin, middle, end);
+    }
+
+    void merge(int A[], int begin, int middle, int end)
+    {
+      int li = 0; // index for operations on the left
+      int ri = 0; // index for operations on the right
+      int mi = 0; // Index of the merged array
+      int left_size = (middle - begin) + 1;
+      int right_size = (end - middle);
+
+      // Use temporary arrays to sort
+      int LA[left_size], RA[right_size];
+
+      // Copy left half
+      for (li = 0; li < left_size; li++)
+      {
+        LA[li] = A[begin + li];
+      }
+
+      // Copy right half
+      for (ri = 0; ri < right_size; ri++)
+      {
+        RA[ri] = A[middle + ri + 1];
+      }
+
+      // Merge the two arrays back into A[begin ... end]
+      li = 0;     // Reset left index
+      ri = 0;     // Reset right index
+      mi = begin; // Reset merged index
+      while (li < left_size && ri < right_size)
+      {
+        // Left element is <= right element?
+        if (LA[li] <= RA[ri])
+        {
+          A[mi] = LA[li];
+          li++;
+        }
+        else
+        {
+          // Right element is lower than left element.
+          // Copy it to A
+          A[mi] = RA[ri];
+          ri++;
+        }
+
+        mi++;
+      }
+
+      // Now we must copy any remaining elements in LA to A...
+      while (li < left_size)
+      {
+        A[mi] = LA[li];
+        mi++;
+        li++;
+      }
+
+      // ... and we do the same for the remaining elements in RA
+      while (ri < right_size)
+      {
+        A[mi] = RA[ri];
+        ri++;
+        mi++;
+      }
     }
 
     ///
-    /// Quick sort: average O(n log(n)), worst )(n^2)
+    /// Quick sort: average θ(n log(n)), worst O(n^2)
     ///
     void quick_sort(int A[], int asize)
     {

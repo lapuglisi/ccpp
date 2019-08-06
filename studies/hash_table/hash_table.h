@@ -38,7 +38,7 @@ namespace hash_table
         static const unsigned int hash_initial_value_ = 1977;
         static const unsigned int hash_modifier_ = 39;
 
-        int size_;
+        size_t size_;
         LinkedList** bucket_;
 
         unsigned int hash(const char *key);

@@ -8,7 +8,9 @@ namespace algorithms
     namespace sorting
     {
         // Merge sort: constant O(n log(n))
-        void merge_sort(int A[], int asize);
+        void merge_sort(int A[], size_t array_size);
+        void merge_sort(int A[], int begin, int end);
+        void merge(int A[], int begin, int middle, int end);
 
         // Quick sort: average O(n log(n)), worst case O(n^2)
         void quick_sort(int A[], int asize);

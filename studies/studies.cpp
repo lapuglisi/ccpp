@@ -36,5 +36,20 @@ int main(int argc, char *argv[])
   printf("[graph::basic_graph_test]\n");
   graph::basic_graph_test();
 
+  // Try to sort an array with merge_sort
+  int numbers[] = {5, 4, 1, 10, 12, 7, 9, 3, 2, 8, 11};
+  int numbers_size = sizeof(numbers)/sizeof(numbers[0]);
+
+  algorithms::sorting::merge_sort(numbers, numbers_size);
+
+  printf("\n");
+  printf("[sorting] array after sorting:\n");
+  printf("[");
+  for (int index = 0; index < numbers_size; index++)
+  {
+    printf("%d%s", numbers[index], (index + 1 < numbers_size ? ", " : ""));
+  }
+  printf("]\n");
+
 	return 0;
 }

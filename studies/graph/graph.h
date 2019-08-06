@@ -31,7 +31,7 @@ namespace graph
 
     static GraphNode* insert(GraphNode* root, int key)
     {
-      if (root == nullptr);
+      if (root == nullptr)
       {
         return nullptr;
       }
@@ -60,7 +60,7 @@ namespace graph
   {
   private:
     GraphNode** head;
-    int size;
+    size_t size;
 
   public:
 
@@ -73,7 +73,7 @@ namespace graph
     ///
     /// size: the number of vertices in this Graph
     ///
-    Graph(int size)
+    Graph(size_t size)
     {
       size_t index = 0;
       this->size = size;
@@ -108,7 +108,7 @@ namespace graph
     {
       // We must find the source node to add the destination to it
       // Check if 'from' or 'to' are valid vertices
-      if (this->size == 0 || from >= this->size || to >= this->size)
+      if (this->size == 0 || from >= (int)this->size || to >= (int)this->size)
       {
         return nullptr;
       }
@@ -145,7 +145,7 @@ namespace graph
       {
         for (GraphNode* node = graph->head[vertex]; node != nullptr; node = node->next)
         {
-          printf("|% 3d  |  % 2d  | % 2d  |\n", vertex, node->key, node->cost);
+          printf("|% 3lu  |  % 2d  | % 2d  |\n", vertex, node->key, node->cost);
         }
       }
       printf("====================\n\n");
