@@ -1,7 +1,7 @@
 #include <iostream>
 
 // Include our header/source files here
-#include "cci.h"
+#include "../-inc/cci.h"
 
 using namespace cci;
 

@@ -11,6 +11,5 @@ namespace linked_list
   {
     return 0;
   }
-
 }
 }

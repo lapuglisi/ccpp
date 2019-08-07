@@ -26,6 +26,18 @@ namespace algorithms
     }
 
     ///
+    /// Given a grid rows x cols, 
+    /// find the shortest path from (startX, startY) to (findX, findY)
+    ///
+    /// Proposition:
+    /// Grid must be filled with 0's and 1's
+    /// a. Cells with 0's are free cells and can be traversed
+    /// b. Cells with 1 are blocked cells and can not
+    ///
+    template<size_t rows, size_t cols>
+    void find_shortest_path(int Grid[rows][cols], int startX, int starY, int findX, int findY);
+
+    ///
     /// Prints a 2D-array in a spiral order
     ///
 	template<size_t rows, size_t cols>
@@ -33,7 +45,7 @@ namespace algorithms
 
 	///
 	/// Finds a element in a circularly sorted array
-	///
+    ///
 	int circular_array_search(int A[], int asize, int element);
 
 	///

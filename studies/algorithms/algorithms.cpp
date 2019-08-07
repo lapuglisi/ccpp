@@ -94,7 +94,7 @@ namespace sorting
         li++;
       }
 
-      // ... and we do the same for the remaining elements in RA
+      // ... and do the same for the remaining elements in RA
       while (ri < right_size)
       {
         A[mi] = RA[ri];
@@ -134,6 +134,12 @@ namespace sorting
     {
 
     }
+}
+
+template<size_t rows, size_t cols>
+void find_shortest_path(int Grid[rows][cols], int startX, int starY, int findX, int findY)
+{
+	
 }
 
 template<size_t rows, size_t cols>

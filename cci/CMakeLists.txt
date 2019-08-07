@@ -8,3 +8,4 @@ project(cci)
 add_executable(${PROJECT_NAME} ${CCI_SOURCES})
 add_compile_options("-g3" "-ggdb")
 enable_testing()
+
