@@ -57,17 +57,18 @@ int main(int argc, char *argv[])
   const size_t cols = 5;
   int grid[rows][cols] = 
   {
-    1, 0, 0, 0, 1, // <-- begin at (0, 1)
-    0, 0, 1, 0, 0, 
+    0, 0, 0, 0, 1, // <-- begin at (0, 1)
+    0, 1, 1, 0, 0, 
     0, 1, 1, 1, 0,
-    0, 0, 1, 1, 0,
-    1, 0, 0, 0, 9  // <-- ends at (4, 3)
+    0, 0, 0, 1, 0,
+    1, 1, 0, 0, 9  // <-- ends at (4, 3)
   };
   // Path must be:
   // (0, 1) -> (0, 2) -> (0, 3) -> (1, 3) ...
   // (1, 4) -> (2, 4) -> (3, 4) -> (4, 4)
 
-  algorithms::find_shortest_path<rows, cols>(grid, 0, 1, 9);
+  int shortest = algorithms::find_shortest_path<rows, cols>(grid, 0, 1, 9);
+  printf("[find_shortest_path] shortest path is %d.\n", shortest);
 
 	return 0;
 }

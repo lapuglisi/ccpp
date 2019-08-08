@@ -1,8 +1,9 @@
 #ifndef STUDIES_ALGORITHMS_H
 #define STUDIES_ALGORITHMS_H
 
+#include <math.h>
 #include <iostream>
-#include <map>
+#include <set>
 
 #define DUMP_2D_ARRAY(__GRID, __rows, __cols) \
     printf("Dumping %s:\n", #__GRID); \
@@ -48,16 +49,24 @@ namespace algorithms
     /// a. Cells with 0's are free cells and can be traversed
     /// b. Cells with 1 are blocked cells and can not
     ///
-    typedef std::map<std::pair<int, int>, std::pair<int, int>> two_paired_map_t;
+    /// I may add the following proposition:
+    /// There are three ways to get to one point from another in a grid:
+    /// 1. A 'L' (bottom then right)
+    /// 2. A 180 rotated 'L' (right then bottom)
+    /// 3. A diagonal from start to target
+    ///
+    /// To calculate the L's (1 and 2), just calculate targetX - startX, targetY - startY
+    /// Now here is the trick: if there IS a path to target and neither 1 nor 2 satisfy
+    /// THEN a diagonal exists.
+    /// Since we can't traverse diagonally in a grid, we can calculate the diagonal
+    /// length for the rectangle (startX, startY) (targetX, targetY)
+    /// using a^2 = b^2 + c^2
     template<size_t rows, size_t cols>
-    void find_shortest_path(int Grid[rows][cols], int startX, int startY, int whatToFind)
+    int find_shortest_path(int Grid[rows][cols], int startX, int startY, int whatToFind)
     {
-        // UPDATE: Use of map is wrong because the key may override
-        // previous mappings.
-        // Think of another solution.
-        two_paired_map_t paths;
-
         DUMP_2D_ARRAY(Grid, rows, cols);
+
+        std::set<std::pair<int, int>> paths;
 
         // If whoever is calling this function is confused, 
         // we must help them
@@ -67,42 +76,94 @@ namespace algorithms
         // Now I'm trying to think of a way to avoid some O(rows * cols) here
         // Processing...
         // I don't know
+        // I could act like crazy and handle Grid as a one-dimension array
+        // such as Grid[0 <= row < rows] points to a int[5] (column[0 to cols - 1])
+        // Leave it for a future implementation.
+        int count_rb = 0;
+        int count_br = 0;
+        int l_path = 0;
+        int d_path = 0;
+
         for (int r = startX; r < rows; r++)
         {
             for (int c = startY; c < cols; c++) // You can use other languages too.
             {
+                // Q. Why don't you use 'auto' instead of std::pair<int, int> ?
+                // R. Good question.
                 auto current_cell = std::make_pair(r, c);
-                if (Grid[r][c] == whatToFind)
+                if (Grid[r][c] == 0)
+                {
+                    // Here is the trick.
+                    // Try and figure out what I am doing.
+                    if ((r + 1 < rows && Grid[r + 1][c] == 0) ||
+                        (r - 1 > 0 && Grid[r - 1][c] == 0) ||
+                        (c + 1 < cols && Grid[r][c + 1] == 0) ||
+                        (c - 1 > 0 && Grid[r][c - 1] == 0))
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                    
+                }
+                else if (Grid[r][c] == whatToFind)
                 {
                     printf("[find_shortest_path] Found target '%d' at (%d, %d).\n",
                         whatToFind, r, c);
 
+                    if (count > 0 && 
+                        ((r - 1 > 0 && Grid[r - 1][c] == 0) ||
+                        ((c - 1 > 0 && Grid[r][c - 1]) == 0)))
+                    {
+                        // We came from a valid path
+                        l_path = (r - startX) + (c - startY);
+                        printf("a^2 = (%d)^2 + (%d)^2\n", r - startX, c - startY);
+                        double diagonal = sqrt(pow(r - startX, 2) + pow(c - startY, 2));
+                        d_path = ceil(diagonal);
+                    }
+                    else
+                    {
+                        // No suitable path.
+                        count = -1;
+                    }
+
                     // Found target. Update paths and exit loop
-                    paths.insert(std::make_pair(current_cell, current_cell));
                     r = rows, c = cols; // Just to make sure we exit all loops
                     break;
-                }
-                else if (r + 1 < rows && Grid[r + 1][c] == 0)
-                {
-                    // Cell on the right is free
-                    paths.insert(std::make_pair(current_cell, std::make_pair(r + 1, c)));
-                }
-                else if (c + 1 < cols && Grid[r][c + 1] == 0)
-                {
-                    // Cell at the bottom of current is free
-                    paths.insert(std::make_pair(current_cell, std::make_pair(r, c + 1)));
                 }
             }
         }
 
-        // Dump 'paths' here        
-        for (two_paired_map_t::iterator it = paths.begin(); it != paths.end(); it++)
-        {
-            printf("[%d, %d] -> [%d, %d]\n", 
-                it->first.first, it->first.second,
-                it->second.first, it->second.second);
-        }
+        /// Dump values here
+        printf("[I] l_path is %d, d_path is %d (%d), count is %d\n", 
+            l_path, d_path, (d_path - 1) * 2,
+            count);
 
+        /// Now proceed with the investigation:
+        /// I. If 'count' < 'l_path', then there is no path to the target
+        /// because the minimum would be l_path
+        /// II. If 'count' > 'l_path', then the path to the target
+        /// is the diagonal.
+        if (count < l_path)
+        {
+            return -1;
+        }
+        else if (count == l_path)
+        {
+            return l_path;
+        }
+        
+        /// Note: we don't draw a straight diagonal in the grid.
+        /// So bear in mind that it must be considered as a 'line'
+        /// of right -> bottom combinations.
+        /// In other words, a 'diagonal' for each cell is calculated
+        /// as a 1 right, 1 bottom (2 steps).
+        /// Since we are not counting the last diagonal (target cell)
+        /// the value for d_path is (actual diagonal - 1 * 2)
+        /// Diagonal, our 2o shortest path.
+        return (d_path - 1) * 2;
     }
 
     template<size_t rows, size_t cols>
