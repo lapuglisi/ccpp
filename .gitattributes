@@ -1,2 +1,1 @@
-studies/docs/BigOCheatSheet.pdf filter=lfs diff=lfs merge=lfs -text
 studies/docs/cci.pdf filter=lfs diff=lfs merge=lfs -text
