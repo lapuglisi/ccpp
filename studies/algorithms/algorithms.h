@@ -219,6 +219,16 @@ namespace algorithms
     ///
     int find_rotation_count(int A[], int asize);
 
+    ///
+    /// Calculates the longest increasing subset
+    ///
+    int LIS(int A[], int asize);
+
+    ///
+    /// Calculates the longest common subsequemce
+    ///
+    int LCS(const char* s1, const char* s2, int s1len, int s2len);
+
 }
 
 #endif // STUDIES_ALGORITHMS_H

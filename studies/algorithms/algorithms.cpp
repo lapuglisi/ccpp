@@ -221,4 +221,63 @@ int find_rotation_count(int A[], int asize) {
 	return index;
 }
 
+int LIS(int A[], int asize)
+{
+	int *lis = new int[asize];
+	int max_lis = 0;
+
+	for (int i = 0; i < asize; i++)
+	{
+		// Each element itself LIS a lis with length 1
+		lis[i] = 1;
+	}
+
+	for (int i = 1; i < asize; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (A[i] > A[j] && lis[i] < lis[j] + 1)
+			{
+				lis[i]++;
+				max_lis = (lis[i] > max_lis ? lis[i] : max_lis);
+			}
+		}
+	}
+
+	DUMP_ARRAY(lis, 0, asize);
+
+	delete [] lis;
+
+	return max_lis;
+}
+
+#define max(__a, __b) (__a > __b ? __a : __b)
+int LCS(const char* s1, const char* s2, int s1len, int s2len)
+{
+	int lcs[s1len + 1][s2len + 1];
+	int is1 = 0, is2 = 0;
+
+	// O(s1len * s2len) time
+	// O(s1len * s2len) space
+	for (is1 = 0; is1 < s1len; is1++)
+	{
+		for (is2 = 0; is2 < s2len; is2++)
+		{
+			if (is1 == 0 || is2 == 0)
+			{
+				lcs[is1][is2] = 0;
+			}
+			else if (s1[is1] == s2[is2])
+			{
+				lcs[is1][is2] = lcs[is1 - 1][is2 - 1] + 1;
+			}
+			else
+			{
+				lcs[is1][is2] = max(lcs[is1 - 1][is2], lcs[is1][is2 - 1]);
+			}
+		}
+	}
+
+	return lcs[is1 - 1][is2 - 1];
+}
 }

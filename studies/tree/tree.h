@@ -322,6 +322,12 @@ namespace trees
   template<typename _Ty>
   struct BinaryTreeNode<_Ty>* DepthFirstSearch(struct BinaryTreeNode<_Ty>* root, _Ty value);
 
+  ///
+  /// Vertical Sum
+  ///
+  template<typename _Ty>
+  int VerticalSum(struct BinaryTreeNode<_Ty>* root);
+
 }; // namespace trees
 
 #endif // STUDIES_TREES_H

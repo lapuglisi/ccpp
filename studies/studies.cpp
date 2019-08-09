@@ -40,6 +40,11 @@ int main(int argc, char *argv[])
   int numbers[] = {5, 4, 1, 10, 12, 7, 9, 3, 2, 8, 11};
   int numbers_size = sizeof(numbers)/sizeof(numbers[0]);
 
+  printf("\n");
+  printf("[algorithms] find LIS:\n");
+  int lis = algorithms::LIS(numbers, numbers_size);
+  printf("LIS of array is %d.\n", lis);
+
   algorithms::sorting::merge_sort(numbers, numbers_size);
 
   printf("\n");
@@ -69,6 +74,12 @@ int main(int argc, char *argv[])
 
   int shortest = algorithms::find_shortest_path<rows, cols>(grid, 0, 1, 9);
   printf("[find_shortest_path] shortest path is %d.\n", shortest);
+
+  printf("\n");
+  const char* s1 = "abababddd";
+  const char* s2 = "efefefddd";
+  int lcs = algorithms::LCS(s1, s2, 9, 9);
+  printf("[algorithm] lcs of strings '%s' and '%s' is %d.\n", s1, s2, lcs);
 
 	return 0;
 }
