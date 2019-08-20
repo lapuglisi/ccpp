@@ -21,22 +21,13 @@ struct Node {
   }
 };
 
-typedef map<int, int> random_data_map_t;
-typedef map<int , struct Node*> data_node_map_t;
-
-struct Node* copyNode(struct Node* source, random_data_map_t& datas, data_node_map_t& nodes) {
+struct Node* clone(struct Node* source) {
 
   if (source == nullptr) {
     return nullptr;
   }
 
-  struct Node* newNode = new Node(source->data, nullptr, nullptr);
-
-  if (source->random != nullptr) {
-    datas.insert(make_pair(source->data, source->random->data));
-  }
-
-  nodes.insert(make_pair(newNode->data, newNode));
+  struct Node* newNode = new Node(source->data, nullptr, source);
 
   return newNode;
 }
@@ -46,34 +37,37 @@ struct Node* copyList(struct Node* head) {
     return head;
   }
 
-  random_data_map_t datas;
-  data_node_map_t nodes;
-
-  struct Node* newHead = nullptr;  
-  struct Node* lastNode = nullptr;
-
   struct Node* node = head;
+  struct Node* last = nullptr;
+  struct Node* next = nullptr;
 
-  newHead = copyNode(node, datas, nodes);
-  lastNode = newHead;
-  node = node->next;
+  struct Node* newHead = clone(node);
+  last = newHead;
+  next = node->next;
+  node->next = newHead;
+  node = next;
   while (node != nullptr) {
-    struct Node* newNode = copyNode(node, datas, nodes);
-    lastNode->next = newNode;
-    lastNode = newNode;
+    struct Node* newNode = clone(node);
+    last->next = newNode;
+    last = newNode;
 
-    node = node->next;
+    // Now here is the fucking trick
+    struct Node* next = node->next;
+    node->next = newNode;
+    
+    node = next;
   }
 
   // Now update references of randoms
   node = newHead;
   while (node != nullptr) {
-    random_data_map_t::iterator it = datas.find(node->data);
-    if (it != datas.end()) {
-      data_node_map_t::iterator dit = nodes.find(it->second);
-      if (dit != nodes.end()) {
-        node->random = dit->second;
-      }
+    if (node->random->random != nullptr)
+    {
+      node->random = node->random->random->next;
+    }
+    else
+    {
+      node->random = nullptr;
     }
 
     node = node->next;
