@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory.h>
+#include <string.h>
 
 namespace hash_table
 {
